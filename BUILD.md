@@ -70,4 +70,61 @@ ipfs add -r partition1
 
 #### Upload files on IPFS using Pinata
 
-I used the Pinata service to upload the files. Here the captures of the process:
+I used the Pinata service to upload the files. First, I installed node_modules:
+```bash
+npm install axios form-data fs
+```
+
+Then, I created a file `upload_pinata.js`. I made sure that I have created an account on Pinata and got my JWT.
+```javascript
+const axios = require('axios')
+const FormData = require('form-data')
+const fs = require('fs')
+const JWT = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiI1NDE3OTkwMC0xNjVjLTQyZTEtYmRjYS02YTJhNDBiNjZjYWEiLCJlbWFpbCI6ImxvZXZhbmxxY0BvdXRsb29rLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJwaW5fcG9saWN5Ijp7InJlZ2lvbnMiOlt7ImlkIjoiRlJBMSIsImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxfSx7ImlkIjoiTllDMSIsImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxfV0sInZlcnNpb24iOjF9LCJtZmFfZW5hYmxlZCI6ZmFsc2UsInN0YXR1cyI6IkFDVElWRSJ9LCJhdXRoZW50aWNhdGlvblR5cGUiOiJzY29wZWRLZXkiLCJzY29wZWRLZXlLZXkiOiJiYWY3NTJkOTUwMzE2NjgxZGVhNSIsInNjb3BlZEtleVNlY3JldCI6IjRkZGNlNmE2ZmM3YmUyNmJlODVhNDZjMzMxZWQ2MzVmYzJjNjBhNmZjMzRmNWU1M2Y1NzlhZDhiYjI2MmViMmMiLCJpYXQiOjE3MDc2MTY1NzR9.QeBQwa3T5CXBncgb-yXbsV_vmQ0gX_d6y1jfzKfv-ks'
+
+const pinFileToIPFS = async () => {
+    const formData = new FormData();
+    const src = "resources/chaton.jpeg";
+    
+    const file = fs.createReadStream(src)
+    formData.append('file', file)
+    
+    const pinataMetadata = JSON.stringify({
+      name: 'chaton.jpeg',
+    });
+    formData.append('pinataMetadata', pinataMetadata);
+    
+    const pinataOptions = JSON.stringify({
+      cidVersion: 0,
+    })
+    formData.append('pinataOptions', pinataOptions);
+
+    try{
+      const res = await axios.post("https://api.pinata.cloud/pinning/pinFileToIPFS", formData, {
+        maxBodyLength: "Infinity",
+        headers: {
+          'Content-Type': `multipart/form-data; boundary=${formData._boundary}`,
+          'Authorization': `Bearer ${JWT}`
+        }
+      });
+      console.log(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+}
+
+pinFileToIPFS()
+```
+
+Now, I can upload the file to IPFS using Pinata:
+```bash
+node upload_pinata.js
+```
+[upload_pinata](captures/upload_pinata.png)
+
+My file is now uploaded to IPFS using Pinata. You can see the result [here](https://green-worthy-takin-113.mypinata.cloud/ipfs/QmeJaufp9seXCpHMFwxX53P3oRQW8Ny1DduCXAxebEwxv7).
+
+#### Leverage P2P to create a website hosted decentralizely
+
+Now, I added a GitHub Action to automatically upload the modification made to the files to IPFS using Pinata. Here is the content of the `.github/workflows/cd.yml` file:
+```yaml
