@@ -44,7 +44,7 @@ torrent create partition2 -o partition2.torrent
 [copy_folder](captures/copy_folder.png)
 [create_torrent_partition2](captures/create_torrent_partition2.png)
 
-We can see that, even though you copied the entire `partition1` folder to `partition2`, the resulting `partition2.torrent` will still reference the original image from the `partition1` folder.
+We can see that, even though we copied the entire `partition1` folder to `partition2`, the resulting `partition2.torrent` will still reference the original image from the `partition1` folder.
 
 ## IPFS
 
@@ -65,6 +65,8 @@ Here the command to upload the directory to IPFS:
 ipfs add -r partition1
 ```
 [upload_ipfs_partition1](captures/upload_ipfs_partition1.png)
+
+Unlike torrent, IPFS does not create separate torrent files. Instead, it creates a hash for each file and folder. This hash can be used to retrieve the file or folder from the IPFS network.
 
 ### Create your first decentralized website
 
@@ -128,3 +130,30 @@ My file is now uploaded to IPFS using Pinata. You can see the result [here](http
 
 Now, I added a GitHub Action to automatically upload the modification made to the files to IPFS using Pinata. Here is the content of the `.github/workflows/cd.yml` file:
 ```yaml
+name: CD
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: IPFS Pinata deploy GitHub action      
+        uses: popovoleksandr/ipfs-pinata-deploy-action@v1.6.3
+        with:
+          pin-name: 'My cat site'
+          path: './resources'
+          pinata-api-key: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiI1NDE3OTkwMC0xNjVjLTQyZTEtYmRjYS02YTJhNDBiNjZjYWEiLCJlbWFpbCI6ImxvZXZhbmxxY0BvdXRsb29rLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJwaW5fcG9saWN5Ijp7InJlZ2lvbnMiOlt7ImlkIjoiRlJBMSIsImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxfSx7ImlkIjoiTllDMSIsImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxfV0sInZlcnNpb24iOjF9LCJtZmFfZW5hYmxlZCI6ZmFsc2UsInN0YXR1cyI6IkFDVElWRSJ9LCJhdXRoZW50aWNhdGlvblR5cGUiOiJzY29wZWRLZXkiLCJzY29wZWRLZXlLZXkiOiJiYWY3NTJkOTUwMzE2NjgxZGVhNSIsInNjb3BlZEtleVNlY3JldCI6IjRkZGNlNmE2ZmM3YmUyNmJlODVhNDZjMzMxZWQ2MzVmYzJjNjBhNmZjMzRmNWU1M2Y1NzlhZDhiYjI2MmViMmMiLCJpYXQiOjE3MDc2MTY1NzR9.QeBQwa3T5CXBncgb-yXbsV_vmQ0gX_d6y1jfzKfv-ks
+          pinata-secret-api-key: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiI1NDE3OTkwMC0xNjVjLTQyZTEtYmRjYS02YTJhNDBiNjZjYWEiLCJlbWFpbCI6ImxvZXZhbmxxY0BvdXRsb29rLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJwaW5fcG9saWN5Ijp7InJlZ2lvbnMiOlt7ImlkIjoiRlJBMSIsImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxfSx7ImlkIjoiTllDMSIsImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxfV0sInZlcnNpb24iOjF9LCJtZmFfZW5hYmxlZCI6ZmFsc2UsInN0YXR1cyI6IkFDVElWRSJ9LCJhdXRoZW50aWNhdGlvblR5cGUiOiJzY29wZWRLZXkiLCJzY29wZWRLZXlLZXkiOiJiYWY3NTJkOTUwMzE2NjgxZGVhNSIsInNjb3BlZEtleVNlY3JldCI6IjRkZGNlNmE2ZmM3YmUyNmJlODVhNDZjMzMxZWQ2MzVmYzJjNjBhNmZjMzRmNWU1M2Y1NzlhZDhiYjI2MmViMmMiLCJpYXQiOjE3MDc2MTY1NzR9.QeBQwa3T5CXBncgb-yXbsV_vmQ0gX_d6y1jfzKfv-ks
+          verbose: true
+          remove-old: false
+```
+
+Now, you should be able to see the website and the actions generated at each push and pull request on the repository.
