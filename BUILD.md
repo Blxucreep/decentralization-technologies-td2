@@ -52,3 +52,22 @@ IPFS Desktop and IPFS CLI are installed on my computer. I will use the IPFS CLI 
 
 ### Q1 - Upload the image to IPFS
 
+Here the command to upload the image to IPFS:
+```bash
+ipfs add resources/chaton.jpeg
+```
+[upload_ipfs](captures/upload_ipfs.png)
+
+### Q2 - Upload the directory `partition1` to IPFS
+
+Here the command to upload the directory to IPFS:
+```bash
+ipfs add -r partition1
+```
+[upload_ipfs_partition1](captures/upload_ipfs_partition1.png)
+
+### Create your first decentralized website
+
+#### Upload files on IPFS using Pinata
+
+I used the Pinata service to upload the files. Here the captures of the process:
