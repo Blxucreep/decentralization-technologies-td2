@@ -570,7 +570,7 @@ Now that you've installed IPFS Kubo:
 
 ### IPFS commands
 
-[![IPFS CLI Basics: Accessing Files](./ressources/IPFS-command.png)](https://www.youtube.com/embed/EkQfoQprA8s?si=H09TN-2YljmZNFes "IPFS CLI Basics: Accessing Files")
+[![IPFS CLI Basics: Accessing Files](./captures/IPFS_command.png)](https://www.youtube.com/embed/EkQfoQprA8s?si=H09TN-2YljmZNFes "IPFS CLI Basics: Accessing Files")
 
 👆 Watch this video to learn IPFS cli commands
 
