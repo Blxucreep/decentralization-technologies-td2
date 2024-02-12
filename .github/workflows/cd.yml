@@ -17,7 +17,7 @@ jobs:
         uses: popovoleksandr/ipfs-pinata-deploy-action@v1.6.3
         with:
           pin-name: 'My cat site'
-          path: './resources'
+          path: './'
           pinata-api-key: 06f110bc807e29435359
           pinata-secret-api-key: edbceac41e9bf6cd1a5a1b408ce16771131e4ff98e80c3a3ba44f6092ee4e67f
           verbose: true
