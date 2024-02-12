@@ -141,19 +141,28 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        
       - name: IPFS Pinata deploy GitHub action      
         uses: popovoleksandr/ipfs-pinata-deploy-action@v1.6.3
         with:
           pin-name: 'My cat site'
           path: './resources'
-          pinata-api-key: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiI1NDE3OTkwMC0xNjVjLTQyZTEtYmRjYS02YTJhNDBiNjZjYWEiLCJlbWFpbCI6ImxvZXZhbmxxY0BvdXRsb29rLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJwaW5fcG9saWN5Ijp7InJlZ2lvbnMiOlt7ImlkIjoiRlJBMSIsImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxfSx7ImlkIjoiTllDMSIsImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxfV0sInZlcnNpb24iOjF9LCJtZmFfZW5hYmxlZCI6ZmFsc2UsInN0YXR1cyI6IkFDVElWRSJ9LCJhdXRoZW50aWNhdGlvblR5cGUiOiJzY29wZWRLZXkiLCJzY29wZWRLZXlLZXkiOiJiYWY3NTJkOTUwMzE2NjgxZGVhNSIsInNjb3BlZEtleVNlY3JldCI6IjRkZGNlNmE2ZmM3YmUyNmJlODVhNDZjMzMxZWQ2MzVmYzJjNjBhNmZjMzRmNWU1M2Y1NzlhZDhiYjI2MmViMmMiLCJpYXQiOjE3MDc2MTY1NzR9.QeBQwa3T5CXBncgb-yXbsV_vmQ0gX_d6y1jfzKfv-ks
-          pinata-secret-api-key: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiI1NDE3OTkwMC0xNjVjLTQyZTEtYmRjYS02YTJhNDBiNjZjYWEiLCJlbWFpbCI6ImxvZXZhbmxxY0BvdXRsb29rLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJwaW5fcG9saWN5Ijp7InJlZ2lvbnMiOlt7ImlkIjoiRlJBMSIsImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxfSx7ImlkIjoiTllDMSIsImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxfV0sInZlcnNpb24iOjF9LCJtZmFfZW5hYmxlZCI6ZmFsc2UsInN0YXR1cyI6IkFDVElWRSJ9LCJhdXRoZW50aWNhdGlvblR5cGUiOiJzY29wZWRLZXkiLCJzY29wZWRLZXlLZXkiOiJiYWY3NTJkOTUwMzE2NjgxZGVhNSIsInNjb3BlZEtleVNlY3JldCI6IjRkZGNlNmE2ZmM3YmUyNmJlODVhNDZjMzMxZWQ2MzVmYzJjNjBhNmZjMzRmNWU1M2Y1NzlhZDhiYjI2MmViMmMiLCJpYXQiOjE3MDc2MTY1NzR9.QeBQwa3T5CXBncgb-yXbsV_vmQ0gX_d6y1jfzKfv-ks
+          pinata-api-key: 06f110bc807e29435359
+          pinata-secret-api-key: edbceac41e9bf6cd1a5a1b408ce16771131e4ff98e80c3a3ba44f6092ee4e67f
           verbose: true
           remove-old: false
 ```
 
-Now, you should be able to see the website and the actions generated at each push and pull request on the repository.
+I re-created a new API key and secret key on Pinata, and I added them to the cd.yml file directly.
+
+[api_keys](captures/api_keys.png)
+
+Now, you should be able to see the website and the actions generated at each push and pull request on the repository. Here's a quick vue, on pinata, of the website: [https://green-worthy-takin-113.mypinata.cloud/ipfs/QmcqB8FRtJB7bHwM1yF5XNXm6hMMVz9Wv5d5Y5uCgHiaof/].
+
+[website_pinata](captures/website_pinata.png)
