@@ -163,6 +163,6 @@ I re-created a new API key and secret key on Pinata, and I added them to the cd.
 
 [api_keys](captures/api_keys.png)
 
-Now, you should be able to see the website and the actions generated at each push and pull request on the repository. Here's a quick vue, on pinata, of the website: [My cat website](https://green-worthy-takin-113.mypinata.cloud/ipfs/QmcqB8FRtJB7bHwM1yF5XNXm6hMMVz9Wv5d5Y5uCgHiaof/).
+Now, you should be able to see the website and the actions generated at each push and pull request on the repository. Here's a quick view, on pinata, of the website: [My cat website](https://green-worthy-takin-113.mypinata.cloud/ipfs/QmcqB8FRtJB7bHwM1yF5XNXm6hMMVz9Wv5d5Y5uCgHiaof/).
 
 [website_pinata](captures/website_pinata.png)
